@@ -6,7 +6,7 @@ const botLogo = "https://i.ibb.co/FbXLJxw4/b6980c118e1b.jpg";
 
 const logoTypes = ["neon","neon2","fire2","glitch","hacker","futuristic","thunder","devil","fire","ice","snow","lava","metal","gold","silver","glossy","blackpink","transformer","horror","blood","joker","galaxy","space","cloud","sand","stone","magma","gradient","light","paper","watercolor","candy","christmas","luxury","leaf","summer","circuit","block3d","cartoon","chrome","frozen"];
 
-// Channel Context Information
+// Channel Card සහ View Channel Button සකස් කරන Context එක
 const contextInfo = {
     forwardingScore: 999,
     isForwarded: true,
@@ -14,6 +14,15 @@ const contextInfo = {
         newsletterJid: "143366645887163@lid",
         newsletterName: "Ｂʟᴋ Ｑᴜᴇᴇɴ ᴍᴅ ᴏꜰᴄ 🐉",
         serverMessageId: 1
+    },
+    externalAdReply: {
+        title: "〔 𝑩𝑳𝑨𝑪𝑲 𝑼𝑬𝑬𝑵 𝒎𝒅 〕",
+        body: "🌷 BOT CONNECTED !",
+        mediaType: 1,
+        sourceUrl: "https://whatsapp.com/channel/143366645887163@lid",
+        thumbnailUrl: botLogo,
+        renderLargerThumbnail: true,
+        showAdAttribution: true
     }
 };
 
@@ -22,7 +31,7 @@ cmd({
     alias: ["panel", "list", "commands"],
     desc: "Show main menu.",
     category: "main",
-    react: "⚡",
+    react: "📍",
     filename: __filename
 },
 async (conn, mek, m, { from, pushname, prefix, reply }) => {
@@ -144,7 +153,7 @@ async(conn, mek, m, {from, pushname, reply}) => {
     try {
         let logoList = `⟡───« ʙ ʟ ᴀ ᴄ ᴋ - Q ᴜ ᴇ ᴇ ɴ - ᴍ ᴅ »───⟡
 │
-│ ⊳ *Lᴏɢᴏ Mᴀᴋᴇʀ Mᴇɴᴜ*
+│ ⊳ *Lᴏɢᴏ MᴀᴋᴇR Mᴇɴᴜ*
 │
 `;
         
@@ -200,7 +209,7 @@ async(conn, mek, m, {from, pushname, reply}) => {
 
 cmd({ pattern: "downloadmenu", react: "🍭", dontAddCommandList: true, filename: __filename },
 async(conn, mek, m, {from, pushname, reply}) => {
-    await generateSubMenu(conn, mek, from, 'download', '𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗𝗘𝗥𝗦', pushname, reply);
+    await generateSubMenu(conn, mek, from, 'download', '𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗🇪🇷𝗦', pushname, reply);
 });
 
 cmd({ pattern: "searchmenu", react: "🍭", dontAddCommandList: true, filename: __filename },
@@ -210,10 +219,10 @@ async(conn, mek, m, {from, pushname, reply}) => {
 
 cmd({ pattern: "aimenu", react: "🍭", dontAddCommandList: true, filename: __filename },
 async(conn, mek, m, {from, pushname, reply}) => {
-    await generateSubMenu(conn, mek, from, 'ai', '𝗔𝗜 𝗙𝗘𝗔𝗧𝗨𝗥𝗘𝗦', pushname, reply);
+    await generateSubMenu(conn, mek, from, 'ai', '𝗔𝗜 𝗙🇪𝗔𝗧𝗨𝗥🇪𝗦', pushname, reply);
 });
 
 cmd({ pattern: "othermenu", react: "🍭", dontAddCommandList: true, filename: __filename },
 async(conn, mek, m, {from, pushname, reply}) => {
-    await generateSubMenu(conn, mek, from, 'other', '𝗢𝗧𝗛𝗘𝗥 𝗨𝗧𝗜𝗟𝗜𝗧𝗜𝗘𝗦', pushname, reply);
+    await generateSubMenu(conn, mek, from, 'other', '𝗢𝗧𝗛🇪🇷 𝗨𝗧𝗜𝗟𝗜𝗧𝗜🇪🇸', pushname, reply);
 });
