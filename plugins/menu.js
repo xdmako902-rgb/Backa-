@@ -6,24 +6,10 @@ const botLogo = "https://i.ibb.co/FbXLJxw4/b6980c118e1b.jpg";
 
 const logoTypes = ["neon","neon2","fire2","glitch","hacker","futuristic","thunder","devil","fire","ice","snow","lava","metal","gold","silver","glossy","blackpink","transformer","horror","blood","joker","galaxy","space","cloud","sand","stone","magma","gradient","light","paper","watercolor","candy","christmas","luxury","leaf","summer","circuit","block3d","cartoon","chrome","frozen"];
 
-// Channel Card සහ View Channel Button සකස් කරන Context එක
-const contextInfo = {
-    forwardingScore: 999,
-    isForwarded: true,
-    forwardedNewsletterMessageInfo: {
-        newsletterJid: "143366645887163@lid",
-        newsletterName: "Ｂʟᴋ Ｑᴜᴇᴇɴ ᴍᴅ ᴏꜰᴄ 🐉",
-        serverMessageId: 1
-    },
-    externalAdReply: {
-        title: "〔 𝑩𝑳𝑨𝑪𝑲 𝑼𝑬𝑬𝑵 𝒎𝒅 〕",
-        body: "🌷 BOT CONNECTED !",
-        mediaType: 1,
-        sourceUrl: "https://whatsapp.com/channel/143366645887163@lid",
-        thumbnailUrl: botLogo,
-        renderLargerThumbnail: true,
-        showAdAttribution: true
-    }
+const newsletterInfo = {
+    newsletterJid: "143366645887163@newsletter", // Newsletter/Channel JID
+    newsletterName: "Ｂʟᴋ Ｑᴜᴇᴇɴ ᴍᴅ ᴏꜰᴄ 🐉",
+    serverMessageId: 1
 };
 
 cmd({
@@ -31,10 +17,10 @@ cmd({
     alias: ["panel", "list", "commands"],
     desc: "Show main menu.",
     category: "main",
-    react: "📍",
+    react: "⚡",
     filename: __filename
 },
-async (conn, mek, m, { from, pushname, prefix, reply }) => {
+async (conn, mek, m, { from, pushname, reply }) => {
     try {
         let hostname = os.hostname();
         if (hostname.length === 12) hostname = 'Replit';
@@ -59,7 +45,7 @@ async (conn, mek, m, { from, pushname, prefix, reply }) => {
 
         const menuText = `⟡───« ʙ ʟ ᴀ ᴄ ᴋ - Q ᴜ ᴇ ᴇ ɴ - ᴍ ᴅ »───⟡
 │
-│ ⊳ *𝐇𝐞𝐲𝐲 ${pushname}, ${greeting}!*
+│ ⊳ *𝐇𝐞𝐲𝐲 ${pushname || 'User'}, ${greeting}!*
 │
 │ ◈ ᴠᴇʀꜱɪᴏɴ : 3.0.0
 │ ◈ ᴏᴡɴᴇʀ  : ᴍᴀᴋᴏ xᴅ ヤ
@@ -74,10 +60,10 @@ async (conn, mek, m, { from, pushname, prefix, reply }) => {
 *│     ᴄᴏᴍᴍᴀɴᴅ ᴘᴀɴᴇʟ     │*
 ╰───────────────╯
 
-*✦ ʀᴇᴘʟʏ ᴡɪᴛʜ ɴᴜᴍʙᴇʀ ✦*
+*✦ ʀᴇᴘʟʏ ᴡɪᴛʜ ɴᴜRest✦*
 
 *➊ : 🏠 ᴍᴀɪɴ ᴍᴇɴᴜ*
-*➋ :  👑 ᴏᴡɴᴇʀ ᴍᴇɴᴜ*
+*➋ : 👑 ᴏᴡɴᴇʀ ᴍᴇɴᴜ*
 *➌ : 👥 ɢʀᴏᴜᴘ ᴍᴇɴᴜ*
 *➍ : 🎨 ʟᴏɢᴏ ᴍᴇɴᴜ*
 *➎ : 📥 ᴅᴏᴡɴʟᴏᴀᴅ ᴍᴇɴᴜ*
@@ -89,12 +75,13 @@ async (conn, mek, m, { from, pushname, prefix, reply }) => {
 *<  ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʙʟᴀᴄᴋ Qᴜᴇᴇɴ ᴍᴅ 🦋: >*
 ━━━━━━━━━━━━━━━━`;
 
-        const imgBuffer = Buffer.from(await (await fetch(botLogo)).arrayBuffer());
-
         const sentMsg = await conn.sendMessage(from, {
-            image: imgBuffer,
+            image: { url: botLogo },
             caption: menuText,
-            contextInfo: contextInfo
+            contextInfo: {
+                isForwarded: true,
+                forwardedNewsletterMessageInfo: newsletterInfo
+            }
         }, { quoted: mek });
 
         const msgId = sentMsg.key.id;
@@ -112,7 +99,7 @@ async (conn, mek, m, { from, pushname, prefix, reply }) => {
 
     } catch (e) {
         console.log(e);
-        reply(`*❌ System Error!*\n\n${e.message || e}`);
+        reply(`*❌ System Error!*\n\n${e}`);
     }
 });
 
@@ -136,11 +123,13 @@ ${cmdList}╰───────────────⟡
 
 > © ʙʟᴀᴄᴋ Qᴜᴇᴇɴ ᴍᴅ`;
 
-        const imgBuffer = Buffer.from(await (await fetch(botLogo)).arrayBuffer());
         await conn.sendMessage(from, { 
-            image: imgBuffer, 
+            image: { url: botLogo }, 
             caption: menuContent,
-            contextInfo: contextInfo
+            contextInfo: {
+                isForwarded: true,
+                forwardedNewsletterMessageInfo: newsletterInfo
+            }
         }, { quoted: mek });
     } catch (e) { 
         reply('*❌ Submenu Error !!*'); 
@@ -153,7 +142,7 @@ async(conn, mek, m, {from, pushname, reply}) => {
     try {
         let logoList = `⟡───« ʙ ʟ ᴀ ᴄ ᴋ - Q ᴜ ᴇ ᴇ ɴ - ᴍ ᴅ »───⟡
 │
-│ ⊳ *Lᴏɢᴏ MᴀᴋᴇR Mᴇɴᴜ*
+│ ⊳ *Lᴏɢᴏ Mᴀᴋᴇʀ Mᴇɴᴜ*
 │
 `;
         
@@ -170,11 +159,13 @@ async(conn, mek, m, {from, pushname, reply}) => {
 
 > © ʙʟᴀᴄᴋ Qᴜᴇᴇɴ ᴍᴅ`;
 
-        const imgBuffer = Buffer.from(await (await fetch(botLogo)).arrayBuffer());
         const sentMsg = await conn.sendMessage(from, { 
-            image: imgBuffer, 
+            image: { url: botLogo }, 
             caption: logoList,
-            contextInfo: contextInfo
+            contextInfo: {
+                isForwarded: true,
+                forwardedNewsletterMessageInfo: newsletterInfo
+            }
         }, { quoted: mek });
 
         const msgId = sentMsg.key.id;
@@ -182,7 +173,7 @@ async(conn, mek, m, {from, pushname, reply}) => {
         global.numberStore[msgId] = {};
 
         logoTypes.forEach((type, index) => {
-            global.numberStore[msgId][(index + 1).toString()] = `genlogo ${type} ${pushname}`;
+            global.numberStore[msgId][(index + 1).toString()] = `genlogo ${type}&${pushname}`;
         });
 
     } catch (e) {
@@ -190,7 +181,6 @@ async(conn, mek, m, {from, pushname, reply}) => {
         console.log(e);
     }
 });
-
 
 cmd({ pattern: "mainmenu", react: "🍭", dontAddCommandList: true, filename: __filename },
 async(conn, mek, m, {from, pushname, reply}) => {
@@ -209,7 +199,7 @@ async(conn, mek, m, {from, pushname, reply}) => {
 
 cmd({ pattern: "downloadmenu", react: "🍭", dontAddCommandList: true, filename: __filename },
 async(conn, mek, m, {from, pushname, reply}) => {
-    await generateSubMenu(conn, mek, from, 'download', '𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗🇪🇷𝗦', pushname, reply);
+    await generateSubMenu(conn, mek, from, 'download', '𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗𝗘𝗥𝗦', pushname, reply);
 });
 
 cmd({ pattern: "searchmenu", react: "🍭", dontAddCommandList: true, filename: __filename },
@@ -219,10 +209,10 @@ async(conn, mek, m, {from, pushname, reply}) => {
 
 cmd({ pattern: "aimenu", react: "🍭", dontAddCommandList: true, filename: __filename },
 async(conn, mek, m, {from, pushname, reply}) => {
-    await generateSubMenu(conn, mek, from, 'ai', '𝗔𝗜 𝗙🇪𝗔𝗧𝗨𝗥🇪𝗦', pushname, reply);
+    await generateSubMenu(conn, mek, from, 'ai', '𝗔𝗜 𝗙𝗘𝗔𝗧𝗨𝗥𝗘𝗦', pushname, reply);
 });
 
 cmd({ pattern: "othermenu", react: "🍭", dontAddCommandList: true, filename: __filename },
 async(conn, mek, m, {from, pushname, reply}) => {
-    await generateSubMenu(conn, mek, from, 'other', '𝗢𝗧𝗛🇪🇷 𝗨𝗧𝗜𝗟𝗜𝗧𝗜🇪🇸', pushname, reply);
+    await generateSubMenu(conn, mek, from, 'other', '𝗢𝗧𝗛𝗘𝗥 𝗨𝗧𝗜𝗟𝗜𝗧𝗜𝗘𝗦', pushname, reply);
 });
