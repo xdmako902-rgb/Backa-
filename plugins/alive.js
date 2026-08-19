@@ -3,7 +3,7 @@ import os from 'os';
 import moment from 'moment';
 import { fileURLToPath } from 'url';
 import mongoose from 'mongoose';
-import { downloadContentFromMessage } from 'baileys-in-error-fix';
+import { downloadContentFromMessage } from '@whiskeysockets/baileys';
 import fs from 'fs';
 import path from 'path';
 
