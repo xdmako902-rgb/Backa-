@@ -6,10 +6,15 @@ const botLogo = "https://i.ibb.co/FbXLJxw4/b6980c118e1b.jpg";
 
 const logoTypes = ["neon","neon2","fire2","glitch","hacker","futuristic","thunder","devil","fire","ice","snow","lava","metal","gold","silver","glossy","blackpink","transformer","horror","blood","joker","galaxy","space","cloud","sand","stone","magma","gradient","light","paper","watercolor","candy","christmas","luxury","leaf","summer","circuit","block3d","cartoon","chrome","frozen"];
 
-const newsletterInfo = {
-    newsletterJid: "143366645887163@lid",
-    newsletterName: "Ｂʟᴋ Ｑᴜᴇᴇɴ ᴍᴅ ᴏꜰᴄ 🐉",
-    serverMessageId: 1
+// Channel Context Information
+const contextInfo = {
+    forwardingScore: 999,
+    isForwarded: true,
+    forwardedNewsletterMessageInfo: {
+        newsletterJid: "143366645887163@lid",
+        newsletterName: "Ｂʟᴋ Ｑᴜᴇᴇɴ ᴍᴅ ᴏꜰᴄ 🐉",
+        serverMessageId: 1
+    }
 };
 
 cmd({
@@ -73,16 +78,14 @@ async (conn, mek, m, { from, pushname, prefix, reply }) => {
 
 ━━━━━━━━━━━━━━━━
 *<  ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʙʟᴀᴄᴋ Qᴜᴇᴇɴ ᴍᴅ 🦋: >*
-━━━━━━━━━━━━━━━━;
+━━━━━━━━━━━━━━━━`;
 
         const imgBuffer = Buffer.from(await (await fetch(botLogo)).arrayBuffer());
 
         const sentMsg = await conn.sendMessage(from, {
             image: imgBuffer,
             caption: menuText,
-            contextInfo: {
-                forwardedNewsletterMessageInfo: newsletterInfo
-            }
+            contextInfo: contextInfo
         }, { quoted: mek });
 
         const msgId = sentMsg.key.id;
@@ -100,7 +103,7 @@ async (conn, mek, m, { from, pushname, prefix, reply }) => {
 
     } catch (e) {
         console.log(e);
-        reply(`*❌ System Error!*\n\n${e}`);
+        reply(`*❌ System Error!*\n\n${e.message || e}`);
     }
 });
 
@@ -128,9 +131,7 @@ ${cmdList}╰───────────────⟡
         await conn.sendMessage(from, { 
             image: imgBuffer, 
             caption: menuContent,
-            contextInfo: {
-                forwardedNewsletterMessageInfo: newsletterInfo
-            }
+            contextInfo: contextInfo
         }, { quoted: mek });
     } catch (e) { 
         reply('*❌ Submenu Error !!*'); 
@@ -148,7 +149,6 @@ async(conn, mek, m, {from, pushname, reply}) => {
 `;
         
         logoTypes.forEach((type, index) => {
-            
             let num = (index + 1).toString().padStart(2, '0');
             logoList += `│ [ ${num} ] ${type.toUpperCase()}\n`;
         });
@@ -165,9 +165,7 @@ async(conn, mek, m, {from, pushname, reply}) => {
         const sentMsg = await conn.sendMessage(from, { 
             image: imgBuffer, 
             caption: logoList,
-            contextInfo: {
-                forwardedNewsletterMessageInfo: newsletterInfo
-            }
+            contextInfo: contextInfo
         }, { quoted: mek });
 
         const msgId = sentMsg.key.id;
@@ -175,7 +173,7 @@ async(conn, mek, m, {from, pushname, reply}) => {
         global.numberStore[msgId] = {};
 
         logoTypes.forEach((type, index) => {
-            global.numberStore[msgId][(index + 1).toString()] = `genlogo \( {type}& \){pushname}`;
+            global.numberStore[msgId][(index + 1).toString()] = `genlogo ${type} ${pushname}`;
         });
 
     } catch (e) {
